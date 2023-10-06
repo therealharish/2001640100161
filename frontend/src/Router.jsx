@@ -1,7 +1,4 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
+import * as React from "react";
 import { createRoot } from "react-dom/client";
 import TrainDetails from "./components/TrainDetails";
 import TrainTable from "./components/TrainTable";
@@ -11,13 +8,12 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import TrainInfo from './components/TrainInfo.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: 
-      <TrainInfo />,
+      <TrainTable />,
   },
   {
     path: "/train/:trainId",
@@ -25,8 +21,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+export default router;

@@ -29,6 +29,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   }));
 
 const TrainTable = ({ trainData }) => {
+
+//   const handleClick = () => {
+//     console.log("Hello")
+    
+//   }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 750     }} aria-label="simple table">
