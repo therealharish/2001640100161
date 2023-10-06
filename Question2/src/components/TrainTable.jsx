@@ -37,7 +37,7 @@ const TrainTable = ({ trainData }) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 750     }} aria-label="simple table">
+      <Table sx={{ minWidth: 680    }} aria-label="simple table">
         <TableHead>
           <StyledTableRow>
             <StyledTableCell>Name</StyledTableCell>
