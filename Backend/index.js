@@ -3,6 +3,8 @@ const axios = require('axios');
 const moment = require('moment');
 const app = express();
 const port = 3000; 
+const cors = require('cors')
+app.use(cors())
 // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTY1NzIxMjQsImNvbXBhbnlOYW1lIjoiVHJhaW4gQ2VudHJhbCIsImNsaWVudElEIjoiY2I0MmZhM2QtMDNjMi00NDU5LTkzNDktZTY5NDI5YWE1OGY3Iiwib3duZXJOYW1lIjoiIiwib3duZXJFbWFpbCI6IiIsInJvbGxObyI6IjIwMDE2NDAxMDAxNjEifQ.gRv13tuYYa6bxDabF2SZO0wvYB0lOIjBW4PbiJsyvKs"
 async function fetchTrainData() {
   const now = moment();
@@ -57,6 +59,7 @@ async function fetchTrainData() {
 
   return filteredTrains.map((train) => ({
     name: train.trainName,
+    trainNumber: train.trainNumber,
     departureTime: train.departureTime,
     seatAvailability: {
       sleeper: train.seatsAvailable.sleeper,
@@ -79,6 +82,29 @@ app.get('/trains', async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+app.get('/trains/train/:trainId', async(req, res) => {
+  const requestBody = {
+    "companyName": "Train Central",
+    "clientID": "cb42fa3d-03c2-4459-9349-e69429aa58f7",
+    "ownerName": "Mohd Harish",
+    "ownerEmail": "harishaa827@gmail.com",
+    "rollNo": "2001640100161",
+    "clientSecret": "AVCuvQutLDKFBGRx"
+};
+
+const token = await getAuthToken(requestBody);
+
+const id = req.params.trainId;
+const response = await axios.get(
+  `http://20.244.56.144/train/trains/${id}`,
+  {
+      headers: { Authorization: `Bearer ${token}` }
+  }
+);
+console.log(response.data);
+res.json(response.data);
 });
 
 // post request to get authorization token from the server before calling the get method to get the train data
